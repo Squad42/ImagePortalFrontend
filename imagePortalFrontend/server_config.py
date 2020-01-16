@@ -57,17 +57,12 @@ class DevelopmentConfig(Config):
     ANALYSIS_SERVICE_ADDRESS = "192.168.2.104"
     COMMENTSANDLIKES_SERVICE_ADDRESS = "192.168.2.105"
 
-    # AMAZON AWS CONFIG
-    S3_BUCKET = os.environ.get("S3_BUCKET")
-    S3_KEY = os.environ.get("S3_KEY")
-    S3_SECRET = os.environ.get("S3_SECRET_ACCESS_KEY")
-    S3_LOCATION = "http://{}.s3.amazonaws.com/".format(S3_BUCKET)
-
-    # DROBPOX (DBX) CONFIG
-    DBX_ACCESS_TOKEN = os.environ.get("DBX_ACCESS_TOKEN")
-
+    UPLOAD_HOSTNAME = os.environ.get("UPLOAD_HOSTNAME")
+    UPLOAD_PORT = os.environ.get("UPLOAD_PORT")
     CATALOGUE_HOSTNAME = os.environ.get("CATALOGUE_HOSTNAME")
     CATALOGUE_PORT = os.environ.get("CATALOGUE_PORT")
+    USERMANAGE_HOSTNAME = os.environ.get("USERMANAGE_HOSTNAME")
+    USERMANAGE_PORT = os.environ.get("USERMANAGE_PORT")
 
 
 class TestingConfig(Config):
