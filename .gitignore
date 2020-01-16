@@ -1,3 +1,32 @@
+## USER ADDED GITIGNORES
+
+imagePortalFrontend/config_environment.py
+imagePortalFrontend/__pycache__/
+
+## ENV / IDE GITIGNORES
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+
+
+# Pytest stuff
+.pytest_cache
+imagePortalFrontend/.pytest_cache
+imagePortalFrontend/tests/.pytest_cache
+__pycache__
+imagePortalFrontend/__pycache__
+imagePortalFrontend/tests/__pycache__
+
+
+
+## PYTHON SPECIFIC GITIGNORE
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
