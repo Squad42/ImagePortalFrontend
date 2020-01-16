@@ -18,12 +18,12 @@
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active btn">
+                    <li role="presentation" class="btn">
                         <a href="{{ url_for('index') }}">Home</a>
                     </li>
                 </ul>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="btn">
+                    <li role="presentation" class="active btn">
                         <a href="{{ url_for('login_form') }}">Login</a>
                     </li>
                 </ul>
@@ -37,21 +37,33 @@
         </div>
         <hr>
         <div class="jumbotron">
-            <h2>Upload Your Image</h2>
-            <p class="lead"></p>
-            <form id="upload-image-form" method="POST" enctype="multipart/form-data">
+            <div class="column is-4 is-offset-4">
+                <h3 class="title">Login</h3>
+                <div class="box">
+                    <form method="POST" action="{{ url_for('submit_login', __METHOD_OVERRIDE__='POST' ) }}">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-large" type="text" name="username" placeholder="username"
+                                    autofocus="">
+                            </div>
+                        </div>
 
-                <div class="container">
-                    <label for="file-picker" class="btn btn-success text-center">Select image for upload</label>
-                    <input id="file-picker" type="file" name="user_image">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-large" type="password" name="password"
+                                    placeholder="Your Password">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                                Remember me
+                            </label>
+                        </div>
+                        <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                    </form>
                 </div>
-
-                <!-- SUBMIT FORM VALUES -->
-                <button type="submit" name="aws" class="btn  btn-warning pull-right" formaction="">Upload
-                    via AWS S3</button>
-                <button type="submit" name="dbx" class="btn  btn-info pull-right" formaction="">Upload
-                    via DROPBOX</button>
-            </form>
+            </div>
 
         </div>
     </div>

@@ -52,6 +52,41 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/login_form")
+def login_form():
+    app.logger.info("Displaying landing page")
+    return render_template("login.html")
+
+
+# TODO: replace with json POST
+@app.route("/submit_login", methods=["POST"])
+def submit_login():
+
+    app.logger.info("Displaying landing page")
+
+    username = request.form["username"]
+    password = request.form["password"]
+
+    usermanagement_api_images = (
+        "http://"
+        + app.config["USERMANAGE_HOSTNAME"]
+        + ":"
+        + app.config["USERMANAGE_PORT"]
+        + "/login_credentials"
+        + "/"
+        + username
+        + "/"
+        + str(password)
+    )
+
+    response = requests.get(usermanagement_api_images)
+
+    if response.status_code == 200:
+        return render_template("index.html")
+
+    return "Invalid credentials"
+
+
 @app.route("/gallery")
 def gallery():
     app.logger.info("Displaying landing page")
