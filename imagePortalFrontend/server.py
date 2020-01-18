@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_bootstrap import Bootstrap
 import os
 
 app = Flask(__name__)
+Bootstrap(app)
 app.config.from_object("imagePortalFrontend.server_config.DevelopmentConfig")
 
 from imagePortalFrontend.server_views import *

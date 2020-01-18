@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/jumbotron-narrow.css" rel="stylesheet">
+
+    <link href="../static/style.css" rel="stylesheet">
+
+    <script src="bootstrap-prettyfile.js"></script>
+
+
+    <title>{% block title %}{% endblock %} - Image Portal</title>
+
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('index') }}">Upload</a>
+                    </li>
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('register') }}">Register</a>
+                    </li>
+                </ul>
+                <!-- <ul class="nav nav-pills pull-right">
+
+                </ul>
+                <ul class="nav nav-pills pull-right">
+
+                </ul>
+                <ul class="nav nav-pills pull-right">
+
+                </ul> -->
+            </nav>
+            <h1 class="text-muted">Squad42 Image Portal</h1>
+        </div>
+        <!-- <hr> -->
+        <div id="content">{% block content %}{% endblock %}</div>
+        <hr>
+        <div id="footer">
+            {% block footer %}
+            &copy; Copyright 2020 by <a href="">Squad42</a>.
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

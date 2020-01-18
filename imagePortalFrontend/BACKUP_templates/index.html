@@ -18,13 +18,13 @@
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="btn">
+                    <li role="presentation" class="active btn">
                         <a href="{{ url_for('index') }}">Home</a>
                     </li>
                 </ul>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="btn">
-                        <a href="{{ url_for('index') }}">Login</a>
+                        <a href="{{ url_for('login_form') }}">Login</a>
                     </li>
                 </ul>
                 <ul class="nav nav-pills pull-right">
@@ -37,26 +37,27 @@
         </div>
         <hr>
         <div class="jumbotron">
-            <div class="container">
+            <h1>Upload Your Image</h1>
+            <p class="lead"></p>
+            <form id="upload-image-form" method="POST" enctype="multipart/form-data">
 
-                <div class="row">
-
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Thumbnail Gallery</h1>
-                    </div>
-                    <!-- {{image_urls}} -->
-                    <hr>
-                    {% for img_url in image_urls %}
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <img class="img-responsive" src=" {{img_url}}">
-                        <button type="button" type="button" onclick="window.location.href='{{ url_for('gallery') }}';"
-                            class="btn btn-warning btn-sm btn-block">View Image</button>
-                        <!-- {{img_url}} -->
-                    </div>
-                    {% endfor %}
+                <div class="container">
+                    <label for="file-picker" class="btn btn-success text-center">Select image for upload</label>
+                    <input id="file-picker" type="file" name="user_image" style="display: none;">
                 </div>
-            </div>
+
+                <!-- SUBMIT FORM VALUES -->
+                <button type="submit" name="aws" class="btn  btn-warning pull-right" formaction="">Upload
+                    via AWS S3</button>
+                <button type="submit" name="dbx" class="btn  btn-info pull-right" formaction="">Upload
+                    via DROPBOX</button>
+            </form>
+
         </div>
+    </div>
+    <div class="container">
+        <button type="button" type="button" onclick="window.location.href='{{ url_for('gallery') }}';"
+            class="btn btn-info btn-lg btn-block">View Gallery</button>
     </div>
 
 </body>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>UPLOAD API</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/jumbotron-narrow.css" rel="stylesheet">
+
+    <link href="../static/style.css" rel="stylesheet">
+
+    <link href="../static/style_gallery_grid.css" rel="stylesheet">
+
+    <script src="bootstrap-prettyfile.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('index') }}">Home</a>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('index') }}">Login</a>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="btn">
+                        <a href="{{ url_for('index') }}">Register</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Microsevices - Image Portal demo</h3>
+        </div>
+        <hr>
+        <div class="jumbotron">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Thumbnail Gallery</h1>
+                    </div>
+                    <!-- {{image_urls}} -->
+                    <hr>
+                    {% for img_url in image_urls %}
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <img class="img-responsive img-thumbnail" src=" {{img_url}}">
+                        <button type="button" type="button" onclick="window.location.href='{{ url_for('gallery') }}';"
+                            class="btn btn-warning btn-sm btn-block">View Image</button>
+                        <!-- {{img_url}} -->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
