@@ -13,7 +13,8 @@
 
     <script src="bootstrap-prettyfile.js"></script>
 
-
+    <link href="../static/style_login.css" rel="stylesheet">
+    
     <title>{% block title %}{% endblock %} - Image Portal</title>
 
     {% endblock %}
@@ -28,7 +29,7 @@
                         <a href="{{ url_for('index') }}">Home</a>
                     </li>
                     <li role="presentation" class="btn">
-                        <a href="{{ url_for('index') }}">Upload</a>
+                        <a href="{{ url_for('upload') }}">Upload</a>
                     </li>
                     <li role="presentation" class="btn">
                         <a href="{{ url_for('login') }}">Login</a>

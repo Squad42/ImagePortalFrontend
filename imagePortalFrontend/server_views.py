@@ -72,6 +72,7 @@ def jwt_token_required(func):
 
 @app.route("/")
 def index():
+    
     catalogue_api_images = (
         "http://"
         + app.config["CATALOGUE_HOSTNAME"]
@@ -94,6 +95,19 @@ def index():
 
     return render_template("index.html", image_urls=image_urls)
 
+
+@app.route("/detailed_view/<path:img_url>")
+def detailed_view(img_url):
+    app.logger.info("IMG_URL: %s", img_url)
+    comments_str = json.dumps({
+        "user1": "love it",
+        "user2": "feels a bit off",
+        "user3": "hilarious",
+    })
+
+    comments = json.loads(comments_str)
+
+    return render_template("detailed.html", img_url=img_url, comments=comments)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -152,27 +166,50 @@ def register():
 
     return render_template("register.html", form=form)
 
+@app.route('/upload/', defaults={"service": None, "version": None})
+@app.route("/upload/<string:service>/<string:version>", methods=["GET", "POST"])
+def upload(service, version):
 
-@app.route("/gallery")
-def gallery():
-    app.logger.info("Displaying landing page")
-    catalogue_api_images = (
-        "http://"
-        + app.config["CATALOGUE_HOSTNAME"]
-        + ":"
-        + app.config["CATALOGUE_PORT"]
-        + "/images"
-    )
+    if request.method == "POST":
+        
+        # upload_api = (
+        #     "http://"
+        #     + app.config["UPLOAD_HOSTNAME"]
+        #     + ":"
+        #     + app.config["UPLOAD_PORT"]
+        #     + "/upload/files/"
+        #     + service
+        #     + "/"
+        #     + version
+        #     + "/"
+        # )
 
-    response = requests.get(catalogue_api_images)
-    json_data = json.loads(response.text)
+        # headers = {"Content-type": "multipart/form-data", 'Accept':'application/json'}
 
-    image_urls = []
-    for image in json_data:
+        # # r = requests.post("http://myservicedotcom/upload", files=sendFile,
+        # #                 headers={"X-Auth-Token": token, "Checksum": c, "File-Size": actualSize}
 
-        image_url = image["img_uri"]
-        if "www.dropbox.com" in image_url:
-            image_url = image_url.replace("?dl=0", "?dl=1")
+        # # ffiles = {"user_image": request.files["user_image"]}
+        # # app.logger.info("%s", request.files["user_image"])
+        # response = requests.post(upload_api, files=request.files)
+        # # response = requests.post(upload_api, files=request.files["user_image"])
+        # # response = requests.post(upload_api, headers=headers, data=request.files["user_image"])
 
-        image_urls.append(image_url)
-    return render_template("gallery.html", image_urls=image_urls)
+        upload_api = (
+            "http://"
+            + app.config["UPLOAD_HOSTNAME"]
+            + ":"
+            + app.config["UPLOAD_PORT"]
+            + "/upload/files/"
+            + service
+            + "/"
+            + version
+            + "/"
+        )
+
+        return redirect(upload_api, code=307)
+
+        # if response.status_code == 200:
+        #     return redirect(url_for("index"))
+
+    return render_template("upload.html")

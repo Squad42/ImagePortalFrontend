@@ -18,8 +18,12 @@
         {% if img_url != "&nbsp;" %}
         <div class="col-lg-4 col-md-6 col-xs-12 thumb">
             <img class="img-responsive img-thumbnail" src=" {{img_url}}">
-            <button type="button" type="button" onclick="window.location.href='{{ url_for('index') }}';"
+            <!-- <form action="" method="post">
+                <button type="submit" name="detailer" type="button" onclick="window.location.href='{{ url_for('detailed_view', img_url=img_url) }}';"
                 class="btn btn-warning btn-sm btn-block">View Image</button>
+            </form> -->
+            <button type="button" type="button" onclick="window.location.href='{{ url_for('detailed_view', img_url=img_url ) }}';"
+            class="btn btn-primary btn-sm btn-block">View Image</button>
             <!-- {{img_url}} -->
         </div>
         {% endif %}
