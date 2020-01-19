@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Detailed view{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link href="../static/style_detailed_comments.css" rel="stylesheet">
+
+<style>
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #eee;
+    }
+
+    .bordered {
+        /* width: 200px; */
+        /* height: 100px; */
+        padding: 20px;
+        border: 1px solid darkorange;
+        border-radius: 8px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .undelined {
+        font-size: 2em;
+        color: limegreen;
+        text-decor.tion: none;
+        border-bottom: 1px solid darkorange;
+    }
+
+    .undelined:hover {
+        color: darkorange;
+        border-width: 3px;
+    }
+
+
+    body {
+        margin: 0;
+    }
+
+    #over img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<!-- <div class="jumbotron"> -->
+<div class="container">
+    <hr>
+    <div class="row">
+        <div id="over" class="col-lg-12 col-md-12 col-xs-12 thumb">
+            <img class=" img-responsive img-thumbnail" src="{{img_url}}">
+            <!-- <img class=" img-responsive img-thumbnail" src=" {{img_url}}"> -->
+        </div>
+    </div>
+    <hr>
+
+    <h3>Post a comment</h3>
+    <form action="/action_page.php">
+        <div class="row col-lg-12 col-md-12 col-xs-12">
+
+            <div class="col-lg-2 col-md-2 col-xs-2"></div>
+            <textarea class="col-lg-8 col-md-8 col-xs-8 bordered" name="message" rows="5">Share your opinion.</textarea>
+            <div class="col-lg-2 col-md-2 col-xs-2"></div>
+
+        </div>
+        <br>
+        <div class="row col-lg-12 col-md-12 col-xs-12">
+
+            <div class="col-lg-9 col-md-9 col-xs-9"></div>
+            <div class="col-lg-1 col-md-1 col-xs-1">
+                <input type="submit">
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-2"></div>
+
+        </div>
+
+    </form>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <h2>People commented</h2>
+        </div>
+    </div>
+    <hr>
+
+    {% for user, comment in comments.items() %}
+    <div class="row col-lg-12 col-md-12 col-xs-12">
+        <div class="col-lg-2 col-md-2 col-xs-2"></div>
+        <div class="col-lg-8 col-md-8 col-xs-8">
+            <a class=".undelined"><b>
+                    <h4>{{user}}</h4>
+                </b></a>
+        </div readonly>
+        <div class="col-lg-2 col-md-2 col-xs-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-xs-2"></div>
+        <textarea readonly class="col-lg-8 col-md-8 col-xs-8 bordered">
+                {{comment}}
+            </textarea readonly>
+            <div class="col-lg-2 col-md-2 col-xs-2"></div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+<!-- </div> -->
+{% endblock %}
+
+</html>

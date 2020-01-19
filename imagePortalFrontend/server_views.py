@@ -72,7 +72,7 @@ def jwt_token_required(func):
 
 @app.route("/")
 def index():
-    
+
     catalogue_api_images = (
         "http://"
         + app.config["CATALOGUE_HOSTNAME"]
@@ -99,15 +99,14 @@ def index():
 @app.route("/detailed_view/<path:img_url>")
 def detailed_view(img_url):
     app.logger.info("IMG_URL: %s", img_url)
-    comments_str = json.dumps({
-        "user1": "love it",
-        "user2": "feels a bit off",
-        "user3": "hilarious",
-    })
+    comments_str = json.dumps(
+        {"user1": "love it", "user2": "feels a bit off", "user3": "hilarious"}
+    )
 
     comments = json.loads(comments_str)
 
-    return render_template("detailed.html", img_url=img_url, comments=comments)
+    return render_template("detailed_view.html", img_url=img_url, comments=comments)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -166,12 +165,13 @@ def register():
 
     return render_template("register.html", form=form)
 
-@app.route('/upload/', defaults={"service": None, "version": None})
+
+@app.route("/upload/", defaults={"service": None, "version": None})
 @app.route("/upload/<string:service>/<string:version>", methods=["GET", "POST"])
 def upload(service, version):
 
     if request.method == "POST":
-        
+
         # upload_api = (
         #     "http://"
         #     + app.config["UPLOAD_HOSTNAME"]

@@ -1,0 +1,23 @@
+.bordered {
+    /* width: 200px; */
+    /* height: 100px; */
+    padding: 20px;
+    border: 1px solid darkorange;
+    border-radius: 8px;
+}
+
+textarea {
+    resize: none;
+}
+
+.undelined {
+    font-size: 2em;
+    color: limegreen;
+    text-decor.tion: none;
+    border-bottom: 1px solid darkorange;
+}
+
+.undelined:hover {
+    color: darkorange;
+    border-width: 3px;
+}
