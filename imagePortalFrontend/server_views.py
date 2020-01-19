@@ -93,7 +93,12 @@ def index():
 
         image_urls.append(image_url)
 
-    return render_template("index.html", image_urls=image_urls)
+    if "logged_in_user" in session:
+        logged_user = session["logged_in_user"]
+    else:
+        logged_user = ""
+
+    return render_template("index.html", image_urls=image_urls, user=logged_user)
 
 
 @app.route("/detailed_view/<path:img_url>")
@@ -128,6 +133,10 @@ def login():
         response = requests.post(usermanagement_api, headers=headers, data=json.dumps(data))
 
         if response.status_code == 200:
+            response_json = response.json()
+            session["jwt_token"] = response_json["jwt_token"]
+            session["logged_in_user"] = response_json["logged_in_user"]
+
             return redirect(url_for("index"))
 
         return "<h1>Invalid username or password</h1>"
@@ -164,6 +173,25 @@ def register():
         return response.text, response.status_code
 
     return render_template("register.html", form=form)
+
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+
+    usermanagement_api = (
+        "http://"
+        + app.config["USERMANAGE_HOSTNAME"]
+        + ":"
+        + app.config["USERMANAGE_PORT"]
+        + "/logout"
+    )
+
+    response = requests.get(usermanagement_api)
+
+    if response.status_code == 200:
+        session.clear()
+
+    return redirect(url_for("index"))
 
 
 @app.route("/upload/", defaults={"service": None, "version": None})
