@@ -24,15 +24,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 
-# from flask_login import (
-#     LoginManager,
-#     UserMixin,
-#     login_user,
-#     login_required,
-#     logout_user,
-#     current_user,
-# )
-
 
 class LoginForm(FlaskForm):
     username = StringField("username", validators=[InputRequired(), Length(min=4, max=10)])
@@ -102,6 +93,7 @@ def index():
 
 
 @app.route("/detailed_view/<path:img_url>")
+@jwt_token_required
 def detailed_view(img_url):
     app.logger.info("IMG_URL: %s", img_url)
     comments_str = json.dumps(
@@ -200,29 +192,6 @@ def upload(service, version):
 
     if request.method == "POST":
 
-        # upload_api = (
-        #     "http://"
-        #     + app.config["UPLOAD_HOSTNAME"]
-        #     + ":"
-        #     + app.config["UPLOAD_PORT"]
-        #     + "/upload/files/"
-        #     + service
-        #     + "/"
-        #     + version
-        #     + "/"
-        # )
-
-        # headers = {"Content-type": "multipart/form-data", 'Accept':'application/json'}
-
-        # # r = requests.post("http://myservicedotcom/upload", files=sendFile,
-        # #                 headers={"X-Auth-Token": token, "Checksum": c, "File-Size": actualSize}
-
-        # # ffiles = {"user_image": request.files["user_image"]}
-        # # app.logger.info("%s", request.files["user_image"])
-        # response = requests.post(upload_api, files=request.files)
-        # # response = requests.post(upload_api, files=request.files["user_image"])
-        # # response = requests.post(upload_api, headers=headers, data=request.files["user_image"])
-
         upload_api = (
             "http://"
             + app.config["UPLOAD_HOSTNAME"]
@@ -234,10 +203,6 @@ def upload(service, version):
             + version
             + "/"
         )
-
         return redirect(upload_api, code=307)
-
-        # if response.status_code == 200:
-        #     return redirect(url_for("index"))
 
     return render_template("upload.html")
