@@ -116,7 +116,7 @@ def login():
             + app.config["USERMANAGE_HOSTNAME"]
             + ":"
             + app.config["USERMANAGE_PORT"]
-            + "/login_credentials_check"
+            + "/users/login_credentials_check"
         )
 
         headers = {"Content-type": "application/json", "Accept": "text/plain"}
@@ -175,7 +175,7 @@ def logout():
         + app.config["USERMANAGE_HOSTNAME"]
         + ":"
         + app.config["USERMANAGE_PORT"]
-        + "/logout"
+        + "/users/logout"
     )
 
     response = requests.get(usermanagement_api)

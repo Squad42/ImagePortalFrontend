@@ -1,0 +1,64 @@
+version: "3.7"
+
+services:
+
+  postgres_catalogue:
+    restart: always
+    image: postgres:latest
+    container_name: postgresql_catalogue
+    env_file: 
+      - ./ImageCatalogue/database_compose.conf
+
+  catalogue:
+    restart: always
+    build: ./ImageCatalogue
+    container_name: imagecatalogue
+    ports:
+      - "5001:5001"
+    env_file: 
+      - ./ImageCatalogue/database_compose.conf
+    depends_on:
+      - postgres_catalogue
+
+  uploads:
+    restart: always
+    build: ./ImageUpload
+    container_name: imageupload
+    ports:
+      - "5000:5000"
+    env_file: 
+      - upload_compose.conf
+    depends_on:
+      - catalogue
+
+  postgres_usermanagement:
+    restart: always
+    image: postgres:latest
+    container_name: postgresql_usermanagement
+    env_file: 
+      - ./UserManagement/database_compose.conf
+
+  usermanager:
+    restart: always
+    build: ./UserManagement
+    container_name: usermanagement
+    ports:
+      - "5005:5005"
+    env_file: 
+      - ./UserManagement/database_compose.conf
+    depends_on:
+      - postgres_usermanagement
+
+  imageportal_frontend:
+    restart: always
+    build: ./ImagePortalFrontend
+    container_name: imageportal_frontend
+    ports:
+      - "5003:5003"
+    env_file: 
+      - ./ImagePortalFrontend/services_front.conf
+    depends_on:
+      - catalogue
+      - uploads
+      - usermanager
+
