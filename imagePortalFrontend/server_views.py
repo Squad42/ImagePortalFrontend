@@ -188,7 +188,7 @@ def logout():
 
 @app.route("/gui_upload/", defaults={"service": None, "version": None})
 @app.route("/gui_upload/<string:service>/<string:version>", methods=["GET", "POST"])
-def upload(service, version):
+def gui_upload(service, version):
 
     if request.method == "POST":
 
