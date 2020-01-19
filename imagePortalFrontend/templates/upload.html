@@ -33,10 +33,10 @@
             <hr>
             <!-- SUBMIT FORM VALUES -->
             <button type="submit" name="aws" class="btn  btn-warning pull-right"
-                formaction="{{ url_for('upload', service='aws', version='v1') }}">Upload
+                formaction="{{ url_for('gui_upload', service='aws', version='v1') }}">Upload
                 via AWS S3</button>
             <button type="submit" name="dbx" class="btn  btn-info pull-left"
-                formaction="{{ url_for('upload', service='dbx', version='v2') }}">Upload
+                formaction="{{ url_for('gui_upload', service='dbx', version='v2') }}">Upload
                 via DROPBOX</button>
         </form>
 

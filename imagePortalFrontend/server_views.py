@@ -186,13 +186,13 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/upload/", defaults={"service": None, "version": None})
-@app.route("/upload/<string:service>/<string:version>", methods=["GET", "POST"])
+@app.route("/gui_upload/", defaults={"service": None, "version": None})
+@app.route("/gui_upload/<string:service>/<string:version>", methods=["GET", "POST"])
 def upload(service, version):
 
     if request.method == "POST":
 
-        upload_api = (
+        local_upload_api = (
             "http://"
             + app.config["UPLOAD_HOSTNAME"]
             + ":"
@@ -203,6 +203,9 @@ def upload(service, version):
             + version
             + "/"
         )
+
+        upload_api = "/upload/files/" + service + "/" + version + "/"
+
         return redirect(upload_api, code=307)
 
     return render_template("upload.html")
