@@ -18,21 +18,24 @@ config_path_template = os.path.join(APP_ROOT, "TEMPLATE_config_environment.py")
 # Sending loggs to logit.io
 # Create the logger and set it's logging level
 logger_logit = logging.getLogger("logstash")
-logger_logit.setLevel(logging.ERROR)        
+logger_logit.setLevel(logging.ERROR)
 # Create the handler
 handler = AsynchronousLogstashHandler(
-    host='fc652908-5b50-4887-8af2-89286e6febe1-ls.logit.io', 
-    port=17326, 
-    ssl_enable=True, 
+    host="fc652908-5b50-4887-8af2-89286e6febe1-ls.logit.io",
+    port=17326,
+    ssl_enable=True,
     ssl_verify=False,
-    database_path='')
+    database_path="",
+)
 # Here you can specify additional formatting on your log record/message
-formatter = LogstashFormatter(message_type='python-logstash',
-    extra_prefix='extra',
-    extra=dict(mikrostoritev='frontend', okolje='production'))
+formatter = LogstashFormatter(
+    message_type="python-logstash",
+    extra_prefix="extra",
+    extra=dict(mikrostoritev="frontend", okolje="production"),
+)
 handler.setFormatter(formatter)
 # Assign handler to the logger
-logger_logit.addHandler(handler) 
+logger_logit.addHandler(handler)
 
 try:
     # if config_path.exists():
@@ -87,14 +90,16 @@ class DevelopmentConfig(Config):
     USERMANAGE_PORT = os.environ.get("USERMANAGE_PORT")
     ANALYSIS_HOSTNAME = os.environ.get("ANALYSIS_HOSTNAME")
     ANALYSIS_PORT = os.environ.get("ANALYSIS_PORT")
-    
+    COMMENTS_HOSTNAME = os.environ.get("COMMENTS_HOSTNAME")
+    COMMENTS_PORT = os.environ.get("COMMENTS_PORT")
+
     # CONFIG SERVER
     if "CONSUL_HOST" in os.environ:
-    	CONFIG_HOST = os.environ["CONSUL_HOST"]
+        CONFIG_HOST = os.environ["CONSUL_HOST"]
     else:
         CONFIG_HOST = "localhost"
     if "CONSUL_PORT" in os.environ:
-    	CONFIG_PORT = os.environ["CONSUL_PORT"]
+        CONFIG_PORT = os.environ["CONSUL_PORT"]
     else:
         CONFIG_PORT = 8500
 

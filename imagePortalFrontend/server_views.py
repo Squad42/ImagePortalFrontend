@@ -127,7 +127,23 @@ def detailed_view(img_url):
         {"user1": "love it", "user2": "feels a bit off", "user3": "hilarious"}
     )
 
-    comments = json.loads(comments_str)
+    comments = []
+    try:
+        local_comments_api = (
+            "http://"
+            + app.config["COMMENTS_HOSTNAME"]
+            + ":"
+            + app.config["COMMENTS_PORT"]
+            + "/comments/filter/"
+            + img_url
+        )
+
+        response = requests.get(local_comments_api)
+
+        if response.status_code == 200:
+            comments = response.json()
+    except:
+        comments = json.loads(comments_str)
 
     image_analysis = []
     try:
@@ -259,6 +275,7 @@ def gui_upload(service, version):
 
     return render_template("upload.html")
 
+
 @app.route("/health/liveness")
 def liveness():
     healthStatus = None
@@ -273,19 +290,16 @@ def liveness():
         else:
             healthStatus = "true"
     except:
-        healthStatus = "false"        
+        healthStatus = "false"
 
     if "false" in str(healthStatus).lower():
-        response = jsonify(
-        service_status="FAIL",
-        service_code=503)
+        response = jsonify(service_status="FAIL", service_code=503)
         return response, 503
     else:
-        response = jsonify(
-        service_status="PASS",
-        service_code=200)
+        response = jsonify(service_status="PASS", service_code=200)
         return response, 200
-    
+
+
 @app.route("/health/readiness")
 def readiness():
     healthStatus = None
@@ -300,15 +314,12 @@ def readiness():
         else:
             healthStatus = "true"
     except:
-        healthStatus = "false"         
+        healthStatus = "false"
 
     if "false" in str(healthStatus).lower():
-        response = jsonify(
-        service_status="FAIL",
-        service_code=503)
+        response = jsonify(service_status="FAIL", service_code=503)
         return response, 503
     else:
-        response = jsonify(
-        service_status="PASS",
-        service_code=200)
-        return response, 200    
+        response = jsonify(service_status="PASS", service_code=200)
+        return response, 200
+
