@@ -138,7 +138,9 @@ def detailed_view(img_url):
             + img_url
         )
 
-        response = requests.get(local_comments_api)
+        comments_api = "/comments/filter/" + img_url
+
+        response = requests.get(comments_api)
 
         if response.status_code == 200:
             comments = response.json()
@@ -199,6 +201,43 @@ def login():
         return "<h1>Invalid username or password</h1>"
 
     return render_template("login.html", form=form)
+
+
+@app.route("/post_comment", methods=["GET", "POST"])
+def post_comment():
+
+    if request.method == "POST":
+        user = session["logged_in_user"]
+        message = request.form["message"]
+        img_url = request.form["img_name"]
+
+        local_comments_api = (
+            "http://"
+            + app.config["COMMENTS_HOSTNAME"]
+            + ":"
+            + app.config["COMMENTS_PORT"]
+            + "/comments/add/"
+        )
+
+        comments_api = (
+            "http://"
+            + app.config["COMMENTS_HOSTNAME"]
+            + ":"
+            + app.config["COMMENTS_PORT"]
+            + "/comments/add/"
+        )
+
+        headers = {"Content-type": "application/json", "Accept": "text/plain"}
+        data = {"username": user, "text": message, "img_uri": img_url}
+
+        response = requests.post(comments_api, headers=headers, data=json.dumps(data))
+
+        if response.status_code == 200:
+            return redirect(url_for("detailed_view", img_url=img_url))
+
+        return response.text, response.status_code
+
+    return redirect(url_for("detailed_view", img_url=""))
 
 
 @app.route("/register", methods=["GET", "POST"])

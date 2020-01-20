@@ -83,11 +83,12 @@
     <hr>
 
     <h3>Post a comment</h3>
-    <form action="/action_page.php">
+    <form action="{{ url_for('post_comment') }}" method="post">
         <div class="row col-lg-12 col-md-12 col-xs-12">
 
             <div class="col-lg-2 col-md-2 col-xs-2"></div>
-            <textarea class="col-lg-8 col-md-8 col-xs-8 bordered" name="message" rows="5">Share your view.</textarea>
+            <textarea class="col-lg-8 col-md-8 col-xs-8 bordered" name="message" rows="5"
+                placeholder="Share your view"></textarea>
             <div class="col-lg-2 col-md-2 col-xs-2"></div>
 
         </div>
@@ -101,7 +102,7 @@
             <div class="col-lg-2 col-md-2 col-xs-2"></div>
 
         </div>
-
+        <textarea name="img_name" style="display: none;">{{img_url}}</textarea>
     </form>
     <hr>
     <div class="row">
