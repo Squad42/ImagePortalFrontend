@@ -63,7 +63,8 @@ class DevelopmentConfig(Config):
     CATALOGUE_PORT = os.environ.get("CATALOGUE_PORT")
     USERMANAGE_HOSTNAME = os.environ.get("USERMANAGE_HOSTNAME")
     USERMANAGE_PORT = os.environ.get("USERMANAGE_PORT")
-
+    ANALYSIS_HOSTNAME = os.environ.get("ANALYSIS_HOSTNAME")
+    ANALYSIS_PORT = os.environ.get("ANALYSIS_PORT")
 
 class TestingConfig(Config):
     TESTING = True

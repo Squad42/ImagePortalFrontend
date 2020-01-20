@@ -92,9 +92,36 @@ def index():
     return render_template("index.html", image_urls=image_urls, user=logged_user)
 
 
+# DEPRECARTED
+@app.route("/detailed_analysis/<path:img_url>")
+@jwt_token_required
+def detailed_analysis(img_url):
+
+    image_analysis = []
+
+    try:
+        analysis_api = (
+            "http://"
+            + app.config["ANALYSIS_HOSTNAME"]
+            + ":"
+            + app.config["ANALYSIS_PORT"]
+            + "/analysis/"
+            + img_url
+        )
+        reponse = requests.get(analysis_api)
+
+        if reponse.status_code == 200:
+            image_analysis = reponse.json()["analysis_data"].split("\n")
+    except:
+        image_analysis = ["No people data aquired"]
+
+    return render_template("detailed_analysis.html", img_url=img_url, image_analysis=image_analysis)
+
+
 @app.route("/detailed_view/<path:img_url>")
 @jwt_token_required
 def detailed_view(img_url):
+    # print("DETAILED VIEW ENTERED \n\n\n", flush=True)
     app.logger.info("IMG_URL: %s", img_url)
     comments_str = json.dumps(
         {"user1": "love it", "user2": "feels a bit off", "user3": "hilarious"}
@@ -102,7 +129,29 @@ def detailed_view(img_url):
 
     comments = json.loads(comments_str)
 
-    return render_template("detailed_view.html", img_url=img_url, comments=comments)
+    image_analysis = []
+    try:
+        local_analysis_api = (
+            "http://"
+            + app.config["ANALYSIS_HOSTNAME"]
+            + ":"
+            + app.config["ANALYSIS_PORT"]
+            + "/analysis/"
+            + img_url
+        )
+
+        analysis_api = "/analysis/" + img_url
+
+        reponse = requests.get(analysis_api)
+
+        if reponse.status_code == 200:
+            image_analysis = reponse.json()["analysis_data"].split("\n")
+    except:
+        image_analysis = ["No people data aquired"]
+
+    return render_template(
+        "detailed_view.html", img_url=img_url, comments=comments, image_analysis=image_analysis
+    )
 
 
 @app.route("/login", methods=["GET", "POST"])
