@@ -7,3 +7,6 @@ flask-bootstrap==3.3.7.1
 flask-login==0.4.1
 flask-wtf==0.14.2
 wtforms==2.2.1
+python-consul
+python-logstash-async
+prometheus_flask_exporter
