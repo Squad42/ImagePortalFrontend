@@ -1,4 +1,4 @@
-flask==1.1.1
+flask==2.3.2
 flask-sqlalchemy==2.4.1
 psycopg2==2.8.4
 Flask-JWT==0.3.2
